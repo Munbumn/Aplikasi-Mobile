@@ -1,0 +1,156 @@
+1. 
+fun main() {
+    val school = listOf("mackerel", "trout", "halibut")
+    val myList = mutableListOf("tuna", "salmon", "shark")
+    myList.remove("shark")
+    println(school)
+    println(myList)
+    println("Print data using Looping")
+    var i = 0
+    for (element in school) {
+        i++
+        println("$i: $element")
+    }
+}
+
+2.
+class Aquarium(var length: Int = 100, var width: Int = 20, var height: Int = 40) {
+    init {
+        println("aquarium initializing")
+    }
+    init {
+        println("Volume: ${width * length * height / 1000} liters")
+    }
+}
+
+fun main() {
+    val aquarium1 = Aquarium()
+    val aquarium2 = Aquarium(width = 25)
+    val aquarium3 = Aquarium(height = 35, length = 110)
+    val aquarium4 = Aquarium(width = 25, height = 35, length = 110)
+}
+
+3.
+class Aquarium(var length: Int = 100, var width: Int = 20, var height: Int = 40) {
+    init {
+        println("aquarium initializing")
+    }
+    init {
+        println("Volume: ${width * length * height / 1000} liters")
+    }
+    constructor(numberOfFish: Int) : this() {
+        val tank = numberOfFish * 2000 * 1.1
+        println("Tank: $tank")
+    }
+}
+
+fun main() {
+    val aquarium5 = Aquarium(numberOfFish = 29)
+}
+
+4. 
+class Aquarium(val length: Int = 100, val width: Int = 20, var height: Int = 40) {
+    var volume: Int
+        get() = width * height * length / 1000
+        set(value) {
+            height = (value * 1000) / (width * length)
+        }
+    constructor(numberOfFish: Int) : this() {
+        val tank = numberOfFish * 2000 * 1.1
+        println("Tank: $tank")
+    }
+    fun printSize() {
+        println("Width: $width cm Length: $length cm Height: $height cm")
+        println("Volume: $volume liters")
+    }
+}
+
+fun main() {
+    val aquarium1 = Aquarium()
+    aquarium1.printSize()
+    val aquarium5 = Aquarium(numberOfFish = 29)
+    aquarium5.printSize()
+}
+
+5. 
+Log.d("Test debug", "Hello World, ini saya");
+
+6. 
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/button_toast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_label_toast"
+        android:background="@color/purple_200" />
+
+    <TextView
+        android:id="@+id/show_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="@string/count_initial_value"
+        android:textSize="160sp"
+        android:background="#FFFF00"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/button_count"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/button_label_count"
+        android:background="@color/purple_200" />
+</LinearLayout>
+
+7.
+package lat.pam.hellotoast
+
+import android.os.Bundle
+import android.view.View
+import android.widget.Button
+import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+
+class MainActivity : AppCompatActivity() {
+    private var mCount = 0
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
+        setContentView(R.layout.activity_main)
+
+        val mShowCount = findViewById<TextView>(R.id.show_count)
+        val buttonCountUp = findViewById<Button>(R.id.button_count)
+        val buttonToast = findViewById<Button>(R.id.button_toast)
+
+        buttonCountUp.setOnClickListener {
+            mCount++
+            mShowCount.text = mCount.toString()
+        }
+
+        buttonToast.setOnClickListener {
+            val tulisan = mShowCount.text.toString()
+            Toast.makeText(this, "Angka yang dimunculkan $tulisan", Toast.LENGTH_LONG).show()
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+    }
+}
